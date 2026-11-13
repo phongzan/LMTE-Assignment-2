@@ -1,0 +1,9 @@
+50 -> stock
+fn sell(qty) {
+outer stock - qty -> stock
+}
+sell(5)
+sell(60)
+when stock < 0 { rewind stock }
+show stock
+show history(stock)

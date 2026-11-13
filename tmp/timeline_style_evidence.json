@@ -1,0 +1,171 @@
+{
+  "input": "C:\\Users\\Lenovo\\Downloads\\Assignment 2 plan.docx",
+  "fonts_by_char_count": {
+    "Courier New": 3522,
+    "Arial Unicode MS": 1506
+  },
+  "direct_run_formatting_runs": 497,
+  "direct_paragraph_formatting_paragraphs": 494,
+  "heading_like_paragraphs_not_heading_style": [
+    {
+      "para_index": 1,
+      "text": "Language Features and Idiosyncrasies",
+      "style": "normal"
+    },
+    {
+      "para_index": 2,
+      "text": "Reversed assignment: value first, name second ",
+      "style": "normal"
+    },
+    {
+      "para_index": 13,
+      "text": "Variables with memory (like time travel)",
+      "style": "normal"
+    },
+    {
+      "para_index": 17,
+      "text": "x~1: reads the previous value of x, which is 10",
+      "style": "normal"
+    },
+    {
+      "para_index": 18,
+      "text": "rewind x: restores x to its previous value, which is 10",
+      "style": "normal"
+    },
+    {
+      "para_index": 19,
+      "text": "history(x): returns every value x has held, as an array: [10, 20]",
+      "style": "normal"
+    },
+    {
+      "para_index": 23,
+      "text": "Chained function calls with \u201cthen\u201d",
+      "style": "normal"
+    },
+    {
+      "para_index": 26,
+      "text": "Ours: nums then sort then reverse then show ",
+      "style": "normal"
+    },
+    {
+      "para_index": 30,
+      "text": "Changing an outer variable requires \u201couter\u201d",
+      "style": "normal"
+    },
+    {
+      "para_index": 32,
+      "text": "Table 1. Effect of the outer keyword",
+      "style": "normal"
+    },
+    {
+      "para_index": 35,
+      "text": "Syntax and Semantics",
+      "style": "normal"
+    },
+    {
+      "para_index": 37,
+      "text": "Table 2. Flux constructs",
+      "style": "normal"
+    },
+    {
+      "para_index": 39,
+      "text": "Grammar: CFG",
+      "style": "normal"
+    },
+    {
+      "para_index": 78,
+      "text": "Compiler Structure",
+      "style": "normal"
+    },
+    {
+      "para_index": 80,
+      "text": "Table 3. Compiler stages",
+      "style": "normal"
+    },
+    {
+      "para_index": 83,
+      "text": "Task Breakdown",
+      "style": "normal"
+    },
+    {
+      "para_index": 109,
+      "text": "Testing",
+      "style": "normal"
+    },
+    {
+      "para_index": 113,
+      "text": "Table 5. Unit tests (examples)",
+      "style": "normal"
+    },
+    {
+      "para_index": 114,
+      "text": "Table 6. System tests: programs that must run correctly",
+      "style": "normal"
+    },
+    {
+      "para_index": 115,
+      "text": "Table 7. System tests: programs that must be rejected",
+      "style": "normal"
+    }
+  ],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 1,
+        "text": "Language Features and Idiosyncrasies",
+        "style": "normal"
+      },
+      {
+        "para_index": 2,
+        "text": "Reversed assignment: value first, name second ",
+        "style": "normal"
+      },
+      {
+        "para_index": 3,
+        "text": "C++:",
+        "style": "normal"
+      },
+      {
+        "para_index": 4,
+        "text": "x = 10;",
+        "style": "normal"
+      },
+      {
+        "para_index": 5,
+        "text": "const double PI = 3.14;",
+        "style": "normal"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 1,
+        "run_text": "Language Features and Idiosyncrasies",
+        "style": "normal"
+      },
+      {
+        "para_index": 2,
+        "run_text": "Reversed assignment: value first, name second ",
+        "style": "normal"
+      },
+      {
+        "para_index": 3,
+        "run_text": "C++:",
+        "style": "normal"
+      },
+      {
+        "para_index": 4,
+        "run_text": "x = 10;",
+        "style": "normal"
+      },
+      {
+        "para_index": 5,
+        "run_text": "const double PI = 3.14;",
+        "style": "normal"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}

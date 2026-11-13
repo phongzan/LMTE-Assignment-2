@@ -1,0 +1,4 @@
+show 42
+show "Flux"
+show true
+show [1, 2]

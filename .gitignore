@@ -60,6 +60,11 @@ compile_commands.json
 # vcpkg
 vcpkg_installed/
 
+# Local portable development tools
+.tools/
+cmake-portable.zip
+vs_BuildTools.exe
+
 # debug information files
 *.dwo
 
