@@ -1,0 +1,4 @@
+[3] -> a
+push(a, 7) -> a
+show a
+show len(a)

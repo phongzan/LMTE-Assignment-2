@@ -1,0 +1,7 @@
+fn fact(n) {
+    when n <= 1 {
+        give 1
+    }
+    give n * fact(n - 1)
+}
+show fact(5)

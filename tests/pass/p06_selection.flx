@@ -1,0 +1,8 @@
+7 -> stock
+when stock == 0 {
+    show "out"
+} orwhen stock < 10 {
+    show "low"
+} otherwise {
+    show "ok"
+}

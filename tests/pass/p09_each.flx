@@ -1,0 +1,5 @@
+0 -> sum
+each p in [5, 10, 20] {
+    sum + p -> sum
+}
+show sum

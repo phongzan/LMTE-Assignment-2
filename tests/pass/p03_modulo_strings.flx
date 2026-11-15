@@ -1,0 +1,2 @@
+show 17 % 5
+show "stock: " + "low"

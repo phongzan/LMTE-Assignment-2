@@ -1,0 +1,5 @@
+[1, 2] -> a
+a -> b
+9 -> b[0]
+show a
+show history(b)

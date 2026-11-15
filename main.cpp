@@ -5,22 +5,47 @@
 #include <utility>
 #include <vector>
 
-#include "flux/Lexer.h"
+#include "flux/CodeGen.h"
 #include "flux/Interpreter.h"
+#include "flux/Lexer.h"
 #include "flux/Parser.h"
 #include "flux/RuntimeError.h"
 #include "flux/SemanticAnalyzer.h"
+#include "flux/VM.h"
 
 // Command-line entry point for the Flux front end. It reads one source file,
-// reports lexical or syntax diagnostics, and confirms the parsed statement count.
+// reports lexical or syntax diagnostics, and executes the program or dumps
+// compilation stages as requested.
 int main(int argc, char* argv[]) {
-    const bool showMemory = argc == 3 && std::string(argv[1]) == "--mem";
-    if ((!showMemory && argc != 2) || (showMemory && argc != 3)) {
-        std::cerr << "Usage: flux [--mem] <program.flx>\n";
-        return 64;
+    bool showMemory = false;
+    bool showTokens = false;
+    bool showAST = false;
+    bool showBytecode = false;
+    bool useBytecodeVM = false;
+    std::string sourcePath;
+
+    // Parse command-line arguments
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "--mem") {
+            showMemory = true;
+        } else if (arg == "--tokens") {
+            showTokens = true;
+        } else if (arg == "--ast") {
+            showAST = true;
+        } else if (arg == "--bytecode") {
+            showBytecode = true;
+        } else if (arg == "--vm") {
+            useBytecodeVM = true;
+        } else if (arg[0] != '-') {
+            sourcePath = arg;
+        }
     }
 
-    const char* sourcePath = argv[showMemory ? 2 : 1];
+    if (sourcePath.empty()) {
+        std::cerr << "Usage: flux [--mem] [--tokens] [--ast] [--bytecode] [--vm] <program.flx>\n";
+        return 64;
+    }
 
     // Load the complete source file before starting the compiler pipeline.
     std::ifstream input(sourcePath);
@@ -31,8 +56,9 @@ int main(int argc, char* argv[]) {
 
     std::ostringstream buffer;
     buffer << input.rdbuf();
+    input.close();
 
-    // Stop after each compiler stage if that stage produced diagnostics.
+    // === STAGE 1: LEXICAL ANALYSIS ===
     flux::Lexer lexer(buffer.str());
     std::vector<flux::Token> tokens = lexer.scanTokens();
     if (!lexer.diagnostics().empty()) {
@@ -42,6 +68,16 @@ int main(int argc, char* argv[]) {
         return 65;
     }
 
+    if (showTokens) {
+        std::cout << "[Tokens]\n";
+        for (size_t i = 0; i < tokens.size(); ++i) {
+            std::cout << i << ": " << tokens[i].lexeme << " (" << flux::tokenTypeName(tokens[i].type)
+                      << ")\n";
+        }
+        std::cout << "[/Tokens]\n\n";
+    }
+
+    // === STAGE 2: SYNTAX ANALYSIS ===
     flux::Parser parser(std::move(tokens));
     flux::Program program = parser.parse();
     if (!parser.diagnostics().empty()) {
@@ -51,8 +87,16 @@ int main(int argc, char* argv[]) {
         return 65;
     }
 
-    // Semantic analysis rejects structurally valid programs that violate Flux
-    // rules before the interpreter is allowed to execute them.
+    if (showAST) {
+        std::cout << "[AST]\n";
+        std::cout << "Program with " << program.statements.size() << " statements\n";
+        for (size_t i = 0; i < program.statements.size(); ++i) {
+            std::cout << "  Statement " << i << ": (node at " << program.statements[i].get() << ")\n";
+        }
+        std::cout << "[/AST]\n\n";
+    }
+
+    // === STAGE 3: SEMANTIC ANALYSIS ===
     flux::SemanticAnalyzer analyzer;
     analyzer.analyze(program);
     if (!analyzer.diagnostics().empty()) {
@@ -62,11 +106,22 @@ int main(int argc, char* argv[]) {
         return 65;
     }
 
-    // Execute only after all front-end stages have accepted the program.
+    // === STAGE 4: CODE GENERATION & EXECUTION ===
     try {
         flux::Value::resetMemoryStats();
-        flux::Interpreter interpreter(std::cin, std::cout);
-        interpreter.interpret(program);
+
+        if (useBytecodeVM) {
+            // Bytecode VM execution path (experimental)
+            flux::CodeGen codegen;
+            std::vector<flux::Instruction> bytecode = codegen.generate(program);
+            flux::VM vm(std::cin, std::cout, bytecode, codegen.constants(), showBytecode);
+            vm.execute();
+        } else {
+            // Default: tree-walking interpreter
+            flux::Interpreter interpreter(std::cin, std::cout);
+            interpreter.interpret(program);
+        }
+
         if (showMemory) {
             const flux::MemoryStats stats = flux::Value::memoryStats();
             std::cout << "[mem] arrays created: " << stats.arraysCreated

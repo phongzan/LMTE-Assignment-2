@@ -1,0 +1,9 @@
+fn f() {
+    give 1
+    show "never"
+}
+show f()
+show 2 + 3 * 4
+5 -> x
+5 -> x
+show history(x)

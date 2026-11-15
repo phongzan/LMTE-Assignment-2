@@ -1,0 +1,6 @@
+when true {
+    show 1
+}
+otherwise {
+    show 2
+}

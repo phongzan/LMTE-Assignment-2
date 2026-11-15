@@ -1,0 +1,7 @@
+fn double(v) {
+    give v * 2
+}
+fn add(a, b) {
+    give a + b
+}
+5 then double then add(1) then show

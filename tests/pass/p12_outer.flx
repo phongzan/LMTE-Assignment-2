@@ -1,0 +1,7 @@
+0 -> count
+fn sell() {
+    outer count + 1 -> count
+}
+sell()
+sell()
+show count

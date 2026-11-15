@@ -1,0 +1,7 @@
+0 -> count
+fn f() {
+    9 -> count
+    show count
+}
+f()
+show count

@@ -1,0 +1,2 @@
+ask "Qty? " -> q
+show q * 2

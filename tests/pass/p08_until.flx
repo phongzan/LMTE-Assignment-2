@@ -1,0 +1,5 @@
+1 -> x
+until x > 50 {
+    x * 3 -> x
+}
+show x

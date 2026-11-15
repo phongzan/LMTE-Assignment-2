@@ -42,6 +42,12 @@ bool Value::isString() const { return std::holds_alternative<std::string>(storag
 bool Value::isBool() const { return std::holds_alternative<bool>(storage_); }
 bool Value::isArray() const { return std::holds_alternative<ArrayPtr>(storage_); }
 
+bool Value::isTruthy() const {
+    if (isNil()) return false;
+    if (isBool()) return asBool();
+    return true;
+}
+
 double Value::asNumber() const {
     // Typed accessors fail loudly instead of permitting implicit conversions.
     if (!isNumber()) {

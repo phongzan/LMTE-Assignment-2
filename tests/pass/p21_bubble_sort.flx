@@ -1,0 +1,11 @@
+[5, 2, 9, 1] -> a
+repeat len(a) as i {
+    repeat len(a) - 1 as j {
+        when a[j] > a[j + 1] {
+            a[j] -> t
+            a[j + 1] -> a[j]
+            t -> a[j + 1]
+        }
+    }
+}
+show a

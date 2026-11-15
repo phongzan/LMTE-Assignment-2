@@ -1,0 +1,6 @@
+120 -> stock
+115 -> stock
+155 -> stock
+show stock~1
+show stock~2
+show history(stock)

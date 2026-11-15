@@ -1,0 +1,5 @@
+120 -> stock
+999 -> stock
+rewind stock
+show stock
+show history(stock)

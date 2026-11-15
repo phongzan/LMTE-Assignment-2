@@ -38,6 +38,7 @@ public:
     bool isString() const;
     bool isBool() const;
     bool isArray() const;
+    bool isTruthy() const;
 
     // Typed accessors throw RuntimeError when the stored type does not match.
     double asNumber() const;

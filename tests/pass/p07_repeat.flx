@@ -1,0 +1,5 @@
+0 -> total
+repeat 4 as i {
+    total + i -> total
+}
+show total
